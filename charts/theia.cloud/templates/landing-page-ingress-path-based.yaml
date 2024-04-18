@@ -21,6 +21,9 @@ spec:
   tls:
   - hosts:
     - {{ tpl (.Values.hosts.paths.baseHost | toString) . }}
+    {{- if .Values.hosts.paths.tlsSecretName }}
+    secretName: landing-page-cert-secret
+    {{- end }}
   {{- end }}
   rules:
   - host: {{ tpl (.Values.hosts.paths.baseHost | toString) . }}

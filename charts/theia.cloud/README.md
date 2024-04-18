@@ -1,6 +1,6 @@
 # theia-cloud
 
-![Version: 0.11.0-next.0](https://img.shields.io/badge/Version-0.11.0--next.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.11.0-next](https://img.shields.io/badge/AppVersion-0.11.0--next-informational?style=flat-square)
+![Version: 0.11.0-next.2](https://img.shields.io/badge/Version-0.11.0--next.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.11.0-next](https://img.shields.io/badge/AppVersion-0.11.0--next-informational?style=flat-square)
 
 A Helm chart for Theia.cloud
 
@@ -25,6 +25,7 @@ A Helm chart for Theia.cloud
 | demoApplication.pullSecret | string | `""` | the image pull secret. Leave empty if registry is public |
 | demoApplication.timeout | string | `"30"` | Limit in minutes |
 | hosts | object | (see details below) | You may adjust the hostname below. |
+| hosts.additionalWildcardInstances | list | `["*.webview."]` | additional wildcard hostnames that may be required in the launched Theia-applications, e.g. "*.webview." which leads to "*.webview.ws.192.168.39.173.nip.io" to expose webviews These are required to configure TLS (if enabled via hosts.tls == true) |
 | hosts.instance | string | `"ws.192.168.39.173.nip.io"` | hostname for the launched Theia-applications |
 | hosts.landing | string | `"theia.cloud.192.168.39.173.nip.io"` | hostname of the landing page |
 | hosts.paths | object | (see details below) | Only needed when usePaths == true. Contains the baseHost and paths for all services |
@@ -32,6 +33,7 @@ A Helm chart for Theia.cloud
 | hosts.paths.instance | string | `"instances"` | path for deployed instances |
 | hosts.paths.landing | string | `"trynow"` | path of the landing page |
 | hosts.paths.service | string | `"servicex"` | path of the REST service |
+| hosts.paths.tlsSecretName | bool | `false` | whether the default Theia Cloud tls secret names should be used. If false no tls secret name will be set on the ingress only needed when hosts.usePaths == true and hosts.tls == true |
 | hosts.service | string | `"service.192.168.39.173.nip.io"` | hostname of the REST-API |
 | hosts.servicePort | int | `8081` | service port (default: 8081) |
 | hosts.serviceProtocol | string | `"https"` | protocol of the REST-API |
@@ -40,10 +42,11 @@ A Helm chart for Theia.cloud
 | hosts.useServicePortInHostname | bool | `false` | whether the service port needs to be part of the service URL (default: false) |
 | imagePullPolicy | string | `"Always"` | The default imagePullPolicy for containers of theia cloud. Can be overridden for individual components by specifying the imagePullPolicy variable there. Possible values: - Always - IfNotPresent - Never |
 | ingress | object | (see details below) | Values to influence the ingresses |
-| ingress.clusterIssuer | string | `"letsencrypt-prod"` | The cluster issuer to use |
+| ingress.certManagerAnnotations | bool | `true` | When set to true the cert-manager.io annotations will be set. When false certificate management is handled outside of Theia Cloud. |
+| ingress.clusterIssuer | string | `"letsencrypt-prod"` | The cluster issuer to use Only needed when ingress.certManagerAnnotations is true |
 | ingress.instanceName | string | `"theia-cloud-demo-ws-ingress"` | The name of the ingress which will be updated to publish new theia application. If this is not existing it will be created. You may chose to set the ingress up yourself and point theia.cloud to the ingress via the name |
 | ingress.proxyBodySize | string | `"1m"` | Sets the maximum allowed size of the client request body inside the application (e.g. file uploads in Theia). Defaults to 1m. Setting size to 0 disables checking of client request body size. |
-| ingress.theiaCloudCommonName | bool | `false` | When set to true the cert-manager.io/common-name annotation will be set. This is only required when the issued certificate by the cert-manager misses a common-name |
+| ingress.theiaCloudCommonName | bool | `false` | When set to true the cert-manager.io/common-name annotation will be set. This is only required when the issued certificate by the cert-manager misses a common-name Only needed when ingress.certManagerAnnotations is true |
 | issuer | object | (see details below) | Values related to certificates/Cert-manager |
 | issuer.email | string | `"mmorlock@example.com"` | EMail address of the certificate issuer. |
 | keycloak | object | (see details below) | Values related to Keycloak |
