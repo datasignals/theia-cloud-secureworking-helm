@@ -25,6 +25,9 @@ To have the cability to take snapshots of user workspaces (PVC's). The Chart uti
 
 Below are the commands to install gemini Snapshots: 
 
+
+``` shell
 kubectl create ns gemini
 helm repo add fairwinds-stable https://charts.fairwinds.com/stable
 helm install gemini fairwinds-stable/gemini --namespace gemini
+```
