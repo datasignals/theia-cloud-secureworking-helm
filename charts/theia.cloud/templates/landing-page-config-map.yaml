@@ -5,46 +5,28 @@ metadata:
   name: landing-page-config
   namespace: {{ .Release.Namespace }}
 data:
-  config.js: |
-    window.theiaCloudConfig = {
-      appId: "{{ tpl (.Values.app.id | toString) . }}",
-      appName: "{{ tpl (.Values.app.name | toString) . }}",
-      useEphemeralStorage: {{ tpl (.Values.landingPage.ephemeralStorage | toString) . }},
-      useKeycloak: {{ tpl (.Values.keycloak.enable | toString) . }},
-      keycloakAuthUrl: "{{ tpl (.Values.keycloak.authUrl | toString) . }}",
-      keycloakRealm: "{{ tpl (.Values.keycloak.realm | toString) . }}",
-      keycloakClientId: "{{ tpl (.Values.keycloak.clientId | toString) . }}",
-      {{- if .Values.hosts.usePaths }}
-      serviceUrl: "{{ tpl (.Values.hosts.serviceProtocol | toString) . }}://{{ tpl (.Values.hosts.paths.baseHost | toString) . }}/{{ tpl (.Values.hosts.paths.service | toString) . }}",
-      {{- else }}
-      serviceUrl: "{{ tpl (.Values.hosts.serviceProtocol | toString) . }}://{{ tpl (.Values.hosts.service | toString) . }}{{ if .Values.hosts.useServicePortInHostname }}:{{ tpl (.Values.hosts.servicePort | toString) . }}{{ end }}",
-      {{- end }}
-      appDefinition: "{{ tpl (.Values.landingPage.appDefinition | toString) . }}",
-      additionalApps: [
-        {{- range $key, $val := .Values.landingPage.additionalApps }}
-        {
-          appId: {{ $key | quote}},
-          appName: {{ $val.label | quote }},
-        },
-        {{- end }}
-      ],
-      logoFileExtension: "{{ $logoFileExtension }}",
-      disableInfo: {{ tpl (.Values.landingPage.disableInfo | toString) . }},
-      {{- if .Values.landingPage.infoText }}
-      infoText: "{{ tpl (.Values.landingPage.infoText | toString) . }}",
-      {{- end }}
-      {{- if .Values.landingPage.infoTitle }}
-      infoTitle: "{{ tpl (.Values.landingPage.infoTitle | toString) . }}",
-      {{- end }}
-      {{- if .Values.landingPage.loadingText }}
-      loadingText: "{{ tpl (.Values.landingPage.loadingText | toString) . }}",
-      {{- end }}
+  config.js: >
+    const config = {
+
+    appId: "{{ tpl (.Values.app.id | toString) . }}",
+    appName: "{{ tpl (.Values.app.name | toString) . }}",
+    useKeycloak: {{ tpl (.Values.keycloak.enable | toString) . }},
+    useEphemeralStorage: {{ tpl (.Values.landingPage.ephemeralStorage | toString) . }},
+    keycloakAuthUrl: "{{ tpl (.Values.keycloak.authUrl | toString) . }}",
+    keycloakRealm: "{{ tpl (.Values.keycloak.realm | toString) . }}",
+    keycloakClientId: "{{ tpl (.Values.keycloak.clientId | toString) . }}",
+    serviceUrl: "{{ tpl (.Values.hosts.serviceProtocol | toString) . }}://{{ tpl (.Values.hosts.paths.baseHost | toString) . }}/{{ tpl (.Values.hosts.paths.service | toString) . }}",
+    appDefinition: "{{ tpl (.Values.landingPage.appDefinition | toString) . }}",
+    availableContainers: [{{- range $index, $container := .Values.appDefinition }}
+        "{{ $container.name }}"
+        {{- if ne (add $index 1) (len $.Values.appDefinition) }},{{ end }}
+      {{- end }} ],
+    changePasswordUrl:
+    "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/auth?response_type=code&client_id=sds&redirect_uri=https://keycloak.lockular.in&kc_action=UPDATE_PASSWORD",
+    logoutUrl:
+    "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/logout?redirect_uri=http://keycloak.lockular.in"
+    keycloakadminusername:  "admin@lockular.in",
+    keycloakadminpassword:  "FILL THIS",
+    keycloakadminsecret:  "4XcXl8X6L1fzOtp6nOthKLuDzGNMgjx7"
     };
-binaryData:
-  {{- if .Values.app.logoData }}
-  {{ printf "logo.%s: " $logoFileExtension }}{{ .Values.app.logoData }}
-  {{- else }}
-  {{- range $path, $bytes := .Files.Glob (printf "%s" .Values.app.logo)}}
-  {{ printf "logo.%s: " $logoFileExtension }}{{ $.Files.Get $path | b64enc }}
-  {{ end }}
-  {{- end }}
+    export default config;

@@ -1,33 +1,28 @@
-{{- if .Values.demoApplication.install }}
+{{- $ingressName := .Values.ingress.instanceName | default "default-ingress-name" | toString }}
+{{- $monitor := .Values.demoApplication.monitor | default "true" | toString }}
+{{- $tracker := .Values.demoApplication.activityTracker | default "false" | toString }}
+
+{{- range .Values.appDefinitions }}
+---
 apiVersion: theia.cloud/v1beta9
 kind: AppDefinition
 metadata:
-  name: theia-cloud-demo
+  name: {{ .name | toString }}
 spec:
-  name: theia-cloud-demo
-  image: {{ tpl (.Values.demoApplication.name | toString) . }}
-  imagePullPolicy: {{ if .Values.demoApplication.imagePullPolicy }}{{ tpl (.Values.demoApplication.imagePullPolicy | toString) . }}{{ else }}{{ tpl (.Values.imagePullPolicy | toString) . }}{{ end }}
-  pullSecret: {{ tpl (.Values.demoApplication.pullSecret | toString) . }}
-  uid: 101
-  port: 3000
-  ingressname: {{ tpl (.Values.ingress.instanceName | toString) . }}
+  name: {{ .name | toString }}
+  image: {{ .image | toString }}
+  pullSecret: {{ .pullSecret | toString  }}
+  uid: 0
+  port: {{ .port | toString }}
+  ingressname: {{ $ingressName }}
   minInstances: 0
   maxInstances: 10
-  timeout: {{ tpl (.Values.demoApplication.timeout | toString) . }}
-  requestsMemory: 1000M
-  limitsMemory: 1200M
-  requestsCpu: "100m"
-  limitsCpu: "2"
+  timeout: {{ .timeout | toString  }}
+  requestsMemory: {{ .requestsMemory | toString  }}
+  limitsMemory: {{ .limitsMemory | toString }}
+  requestsCpu: {{ .requestsCpu | toString  }}
+  limitsCpu: {{ .limitsCpu | toString  }}
   downlinkLimit: 30000
   uplinkLimit: 30000
-  mountPath: "/home/project/persisted"
-  {{- if .Values.demoApplication.monitor }}
-  monitor:
-    port: {{ tpl (.Values.demoApplication.monitor.port | toString) . }}
-    {{- if .Values.demoApplication.monitor.activityTracker }}
-    activityTracker:
-      timeoutAfter: {{ tpl (.Values.demoApplication.monitor.activityTracker.timeoutAfter | toString) .  }}
-      notifyAfter: {{ tpl (.Values.demoApplication.monitor.activityTracker.notifyAfter | toString) .  }}
-    {{- end }}
-  {{- end }}
+  mountPath: {{ .mountPath| toString  }}
 {{- end }}
