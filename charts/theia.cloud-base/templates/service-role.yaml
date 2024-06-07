@@ -22,4 +22,11 @@ rules:
     resources:
       - pods
     verbs: ["list", "get", "watch"]
+  - 
+    apiGroups: 
+      - ""
+      - gemini.fairwinds.com
+    resources:
+      - snapshotgroups
+    verbs: ["list", "create", "get","delete", "update"]      
     
