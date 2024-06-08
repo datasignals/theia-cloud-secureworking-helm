@@ -324,7 +324,7 @@ service:
   imagePullPolicy:
 
   # -- Optional: the image pull secret
-  imagePullSecret:
+  imagePullSecret: docker-lockular
 
 # -- Values to influence the ingresses
 # @default -- (see details below)
