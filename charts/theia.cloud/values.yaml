@@ -55,6 +55,8 @@ demoApplication:
   # -- Limit in minutes
   timeout: "30"
 
+  toolVersion: "new-tools"
+
   # -- Values that are used by the monitor
   # @default -- (see details below)
   monitor:

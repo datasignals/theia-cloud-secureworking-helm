@@ -71,6 +71,8 @@ spec:
                   type: integer
                 mountPath:
                   type: string
+                toolVersion:
+                  type: string  
                 monitor:
                   type: object
                   properties:
@@ -163,6 +165,8 @@ spec:
                   type: integer
                 mountPath:
                   type: string
+                toolVersion:
+                  type: string  
                 monitor:
                   type: object
                   properties:
@@ -250,6 +254,8 @@ spec:
                   type: integer
                 mountPath:
                   type: string
+                toolVersion:
+                  type: string  
                 monitor:
                   type: object
                   properties:

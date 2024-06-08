@@ -21,6 +21,7 @@ spec:
   downlinkLimit: 30000
   uplinkLimit: 30000
   mountPath: "/home/project/persisted"
+  toolVersion: {{ tpl (.Values.demoApplication.toolVersion | toString) . }}
   {{- if .Values.demoApplication.monitor }}
   monitor:
     port: {{ tpl (.Values.demoApplication.monitor.port | toString) . }}
