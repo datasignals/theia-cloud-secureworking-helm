@@ -317,7 +317,7 @@ operator:
 # @default -- (see details below)
 service:
   # -- The image to use
-  image: theiacloud/theia-cloud-service:0.11.0-next
+  image: datasignals/theia-service:multiple-app-def-v5.0.0
 
   # -- Optional: Override the imagePullPolicy for the service's docker image.
   # If this is omitted or empty, the root at .Values.imagePullPolicy is used.
