@@ -8,8 +8,8 @@ issuerstaging:
 
 issuer:
   # -- email used to issue let's encrypt certificates
-  email: mmorlock@example.com
-
+  email: rameez.bhat@lockular.com
+  
 operatorrole:
   # -- name for the operator's cluster role
   name: operator-api-access

@@ -15,16 +15,16 @@ data:
     keycloakAuthUrl: "{{ tpl (.Values.keycloak.authUrl | toString) . }}",
     keycloakRealm: "{{ tpl (.Values.keycloak.realm | toString) . }}",
     keycloakClientId: "{{ tpl (.Values.keycloak.clientId | toString) . }}",
-    serviceUrl: "{{ tpl (.Values.hosts.serviceProtocol | toString) . }}://{{ tpl (.Values.hosts.paths.baseHost | toString) . }}/{{ tpl (.Values.hosts.paths.service | toString) . }}",
+    serviceUrl: "{{ tpl (.Values.hosts.serviceProtocol | toString) . }}://{{ tpl (.Values.hosts.service | toString) . }}/{{ tpl (.Values.hosts.paths.service | toString) . }}",
     appDefinition: "{{ tpl (.Values.landingPage.appDefinition | toString) . }}",
-    availableContainers: [{{- range $index, $container := .Values.appDefinition }}
+    availableContainers: [{{- range $index, $container := .Values.appDefinitions }}
         "{{ $container.name }}"
-        {{- if ne (add $index 1) (len $.Values.appDefinition) }},{{ end }}
+        {{- if ne (add $index 1) (len $.Values.appDefinitions) }},{{ end }}
       {{- end }} ],
     changePasswordUrl:
     "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/auth?response_type=code&client_id=sds&redirect_uri=https://keycloak.lockular.in&kc_action=UPDATE_PASSWORD",
     logoutUrl:
-    "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/logout?redirect_uri=http://keycloak.lockular.in"
+    "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/logout?redirect_uri=http://keycloak.lockular.in",
     keycloakadminusername:  "admin@lockular.in",
     keycloakadminpassword:  "lockular@2023",
     keycloakadminsecret:  "4XcXl8X6L1fzOtp6nOthKLuDzGNMgjx7"
