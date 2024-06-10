@@ -42,7 +42,7 @@ appDefinitions:
     limitsMemory: 1Gi
     requestsCpu: 200m
     limitsCpu: 200m
-    mountPath:  /home/project
+    mountPath:  /temp/workspace
     timeout: 30000
     notifyAfter: 10
     pullSecret: docker-lockular
@@ -57,7 +57,7 @@ appDefinitions:
     limitsMemory: 1Gi
     requestsCpu: 200m
     limitsCpu: 200m
-    mountPath: /home/project
+    mountPath: /temp/workspace
     timeout: 30000
     notifyAfter: 10
     pullSecret: docker-lockular

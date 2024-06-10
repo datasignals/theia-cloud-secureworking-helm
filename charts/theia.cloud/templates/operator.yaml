@@ -90,24 +90,14 @@ spec:
           {{- if .Values.operator.continueOnException }}
           - "--continueOnException"
           {{- end }}
-        {{- if .Values.operator.logging.override }}
         volumeMounts:
-          - name: operator-logging-config
-            mountPath: /log-config/log4j2.xml
-            subPath: log4j2.xml
           - name: template-config
             mountPath: /templates/templateDeployment.yaml
             subPath: templateDeployment.yaml
-        {{- end }}
-      {{- if .Values.operator.logging.override }}
       volumes:
-        - name: operator-logging-config
-          configMap:
-            name: operator-logging-config
         - name: template-config
           configMap:
             name: templatedeployment
-      {{- end }}
       {{- if .Values.operator.imagePullSecret }}
       imagePullSecrets:
         - name: {{ tpl (.Values.operator.imagePullSecret | toString) . }}
