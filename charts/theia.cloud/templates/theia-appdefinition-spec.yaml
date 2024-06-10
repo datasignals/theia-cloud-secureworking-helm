@@ -25,4 +25,6 @@ spec:
   downlinkLimit: 30000
   uplinkLimit: 30000
   mountPath: {{ .mountPath| toString  }}
+  toolVersion:  {{ .toolVersion | toString  }}
+
 {{- end }}

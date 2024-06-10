@@ -27,4 +27,16 @@ rules:
       - deployments
       - leases
     verbs: ["list", "create", "watch", "get", "patch", "delete", "update"]
+
+## Extra permissions needed for snapshots
+
+  - 
+    apiGroups: 
+      - ""
+      - gemini.fairwinds.com
+    resources:
+      - snapshotgroups
+    verbs: ["list", "create", "get","delete", "update"]  
+    
+
     

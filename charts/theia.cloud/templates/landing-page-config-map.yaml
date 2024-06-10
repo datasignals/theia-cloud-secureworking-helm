@@ -26,7 +26,7 @@ data:
     logoutUrl:
     "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/logout?redirect_uri=http://keycloak.lockular.in"
     keycloakadminusername:  "admin@lockular.in",
-    keycloakadminpassword:  "FILL THIS",
+    keycloakadminpassword:  "lockular@2023",
     keycloakadminsecret:  "4XcXl8X6L1fzOtp6nOthKLuDzGNMgjx7"
     };
     export default config;
