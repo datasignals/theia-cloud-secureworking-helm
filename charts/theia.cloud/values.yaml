@@ -147,8 +147,7 @@ hosts:
 # @default -- (see details below)
 landingPage:
   # -- the landing page image to use
-  image: datasignals/theia:react-landing-v5.0.6
-
+  image: datasignals/sds-landing:multipleappdef-v-react5.0.0 
   # -- Optional: Override the imagePullPolicy for the landing page's docker image.
   # If this is omitted or empty, the root at .Values.imagePullPolicy is used.
   imagePullPolicy:
@@ -225,7 +224,7 @@ keycloak:
 # @default -- (see details below)
 operator:
   # -- The operator image
-  image: theiacloud/theia-cloud-operator:0.11.0-next
+  image: datasignals/sds-operator:multipleappdef-v5.0.0
 
   # -- Optional: Override the imagePullPolicy for the operator's docker image.
   # If this is omitted or empty, the root at .Values.imagePullPolicy is used.
@@ -317,7 +316,7 @@ operator:
 # @default -- (see details below)
 service:
   # -- The image to use
-  image: datasignals/theia-service:multiple-app-def-v5.0.0
+  image: datasignals/sds-service:multipleappdef-v5.0.0
 
   # -- Optional: Override the imagePullPolicy for the service's docker image.
   # If this is omitted or empty, the root at .Values.imagePullPolicy is used.
