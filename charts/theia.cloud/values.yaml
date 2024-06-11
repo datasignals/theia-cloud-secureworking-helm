@@ -194,7 +194,7 @@ keycloak:
 # @default -- (see details below)
 operator:
   # -- The operator image
-  image: datasignals/theia-operator:5.0.6
+  image:  datasignals/sds-operator:pvcsnapshot-v5.0.0
 
   # -- Optional: Override the imagePullPolicy for the operator's docker image.
   # If this is omitted or empty, the root at .Values.imagePullPolicy is used.
