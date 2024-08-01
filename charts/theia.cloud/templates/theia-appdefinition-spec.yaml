@@ -16,7 +16,7 @@ spec:
   port: {{ .port | toString }}
   ingressname: {{ $ingressName }}
   minInstances: 0
-  maxInstances: 10
+  maxInstances: 100
   timeout: {{ .timeout | toString  }}
   requestsMemory: {{ .requestsMemory | toString  }}
   limitsMemory: {{ .limitsMemory | toString }}
@@ -26,5 +26,10 @@ spec:
   uplinkLimit: 30000
   mountPath: {{ .mountPath| toString  }}
   toolVersion:  {{ .toolVersion | toString  }}
-
+  monitor: 
+    port: {{ .monitorPort | toString  }}
+    activityTracker:
+      timeoutAfter: {{ .timeout | toString  }}
+      notifyAfter: {{ .notifyAfter | toString  }}
 {{- end }}
+
