@@ -5,28 +5,26 @@ metadata:
   name: landing-page-config
   namespace: {{ .Release.Namespace }}
 data:
-  config.js: >
+  config.js: |
     const config = {
-
-    appId: "{{ tpl (.Values.app.id | toString) . }}",
-    appName: "{{ tpl (.Values.app.name | toString) . }}",
-    useKeycloak: {{ tpl (.Values.keycloak.enable | toString) . }},
-    useEphemeralStorage: {{ tpl (.Values.landingPage.ephemeralStorage | toString) . }},
-    keycloakAuthUrl: "{{ tpl (.Values.keycloak.authUrl | toString) . }}",
-    keycloakRealm: "{{ tpl (.Values.keycloak.realm | toString) . }}",
-    keycloakClientId: "{{ tpl (.Values.keycloak.clientId | toString) . }}",
-    serviceUrl: "{{ tpl (.Values.hosts.serviceProtocol | toString) . }}://{{ tpl (.Values.hosts.service | toString) . }}/{{ tpl (.Values.hosts.paths.service | toString) . }}",
-    appDefinition: "{{ tpl (.Values.landingPage.appDefinition | toString) . }}",
-    availableContainers: [{{- range $index, $container := .Values.appDefinitions }}
-        "{{ $container.name }}"
-        {{- if ne (add $index 1) (len $.Values.appDefinitions) }},{{ end }}
-      {{- end }} ],
-    changePasswordUrl:
-    "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/auth?response_type=code&client_id=sds&redirect_uri=https://keycloak.lockular.in&kc_action=UPDATE_PASSWORD",
-    logoutUrl:
-    "https://keycloak.lockular.in/realms/cloudstudio/protocol/openid-connect/logout?redirect_uri=http://keycloak.lockular.in",
-    keycloakadminusername:  "admin@lockular.in",
-    keycloakadminpassword:  "lockular@2023",
-    keycloakadminsecret:  "4XcXl8X6L1fzOtp6nOthKLuDzGNMgjx7"
+      appId: "{{ tpl (.Values.app.id | toString) . }}",
+      appName: "{{ tpl (.Values.app.name | toString) . }}",
+      useKeycloak: {{ tpl (.Values.keycloak.enable | toString) . }},
+      useEphemeralStorage: {{ tpl (.Values.landingPage.ephemeralStorage | toString) . }},
+      keycloakAuthUrl: "{{ tpl (.Values.keycloak.authUrl | toString) . }}",
+      keycloakRealm: "{{ tpl (.Values.keycloak.realm | toString) . }}",
+      keycloakClientId: "{{ tpl (.Values.keycloak.clientId | toString) . }}",
+      serviceUrl: "{{ tpl (.Values.hosts.serviceProtocol | toString) . }}://{{ tpl (.Values.hosts.service | toString) . }}/{{ tpl (.Values.hosts.paths.service | toString) . }}",
+      appDefinition: "{{ tpl (.Values.landingPage.appDefinition | toString) . }}",
+      availableContainers: [
+        {{- range $index, $container := .Values.appDefinitions }}
+          "{{ $container.name }}"{{- if ne (add $index 1) (len $.Values.appDefinitions) }},{{ end }}
+        {{- end }}
+      ],
+      changePasswordUrl: "https://keycloak.securedesignservices.com/realms/contractmanagement/protocol/openid-connect/auth?response_type=code&client_id=sds&redirect_uri=https://securedesignservices.com&kc_action=UPDATE_PASSWORD",
+      logoutUrl: "https://keycloak.securedesignservices.com/realms/contractmanagement/protocol/openid-connect/logout?redirect_uri=https://securedesignservices.com",
+      keycloakadminusername: "admin@lockular.in",
+      keycloakadminpassword: "lockular@2023",
+      keycloakadminsecret: "zRrW6BSxR0Ls8DLf3jnDvDLdn13tgFlj"
     };
     export default config;

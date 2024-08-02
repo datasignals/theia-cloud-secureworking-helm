@@ -26,10 +26,10 @@ spec:
   uplinkLimit: 30000
   mountPath: {{ .mountPath| toString  }}
   toolVersion:  {{ .toolVersion | toString  }}
-  monitor: 
-    port: {{ .monitorPort | toString  }}
-    activityTracker:
-      timeoutAfter: {{ .timeout | toString  }}
-      notifyAfter: {{ .notifyAfter | toString  }}
+# monitor: 
+#  port: {{ .monitorPort | toString  }}
+#    activityTracker:
+#     timeoutAfter: {{ .activityTimeout | toString  }}
+#      notifyAfter: {{ .notifyAfter | toString  }}
 {{- end }}
 

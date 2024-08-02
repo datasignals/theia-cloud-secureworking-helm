@@ -35,7 +35,7 @@ app:
 appDefinitions:
   - name:  tools-9-4-2
     image: datasignals/vscode-server:lockular-release-v1.2.2
-    storageClass: gp3
+    storageClass: do-block-storage
     storage: "5Gi"
     port: 8080
     requestsMemory: 1Gi
@@ -43,14 +43,16 @@ appDefinitions:
     requestsCpu: 200m
     limitsCpu: 200m
     mountPath:  /temp/workspace
-    timeout: 30000
-    notifyAfter: 10
+    timeout: "30"
+    notifyAfter: 20
     pullSecret: docker-lockular
-    toolVersion: 9-4-2
+    activityTimeout: 10
+    toolVersion: ""
+    monitorPort: 8081
   
   - name: tools-9-4-4
     image: datasignals/vscode-server:lockular-release-v1.2.2
-    storageClass:  gp3
+    storageClass:  do-block-storage
     storage: "5Gi"
     port: 8080
     requestsMemory: 1Gi
@@ -58,10 +60,12 @@ appDefinitions:
     requestsCpu: 200m
     limitsCpu: 200m
     mountPath: /temp/workspace
-    timeout: 30000
-    notifyAfter: 10
+    timeout: "30"
+    notifyAfter: 20
+    activityTimeout: 10
     pullSecret: docker-lockular
-    toolVersion: 9-4-4
+    toolVersion: ""
+    monitorPort: 8081
 
 
 # -- Values related to certificates/Cert-manager
@@ -151,7 +155,7 @@ hosts:
 # @default -- (see details below)
 landingPage:
   # -- the landing page image to use
-  image: datasignals/sds-landing:latest-v-react5.0.0
+  image: datasignals/sds-landing:latest-v-react5.0.1
 
   # -- Optional: Override the imagePullPolicy for the landing page's docker image.
   # If this is omitted or empty, the root at .Values.imagePullPolicy is used.
@@ -161,11 +165,11 @@ landingPage:
   imagePullSecret:
 
   # -- the app id to launch
-  appDefinition: "tools-9-4-2"
+  appDefinition: "vs-code"
 
   # -- If set to true no persisted storage is used when creating sessions on the landing page.
   # Set to false if you want to use persisted storage.
-  ephemeralStorage: false
+  ephemeralStorage: true
 
   # -- The page may show these additional apps in a drop down. This is a map.
   # The key maps to the app definition name
@@ -266,7 +270,7 @@ operator:
   # -- The name of the storage class for persistent volume claims for workspaces.
   # This storage class must be present on the cluster.
   # Most cloud providers offer a default storage class without additional configuration.
-  storageClassName: "gp3"
+  storageClassName: "do-block-storage"
 
   # -- The amount of requested storage for each persistent volume claim (PVC) for workspaces.
   # This is directly passed to created PVCs and must be a valid Kubernetes quantity.
@@ -361,7 +365,7 @@ servicerole:
 # @default -- (see details below)
 monitor:
   # -- Should the monitor be enabled
-  enable: false
+  enable: true
   # -- Values to influence the activityTracker module
   # @default -- (see details below)
   activityTracker:
