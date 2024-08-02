@@ -23,8 +23,8 @@ data:
       ],
       changePasswordUrl: "https://keycloak.securedesignservices.com/realms/contractmanagement/protocol/openid-connect/auth?response_type=code&client_id=sds&redirect_uri=https://securedesignservices.com&kc_action=UPDATE_PASSWORD",
       logoutUrl: "https://keycloak.securedesignservices.com/realms/contractmanagement/protocol/openid-connect/logout?redirect_uri=https://securedesignservices.com",
-      keycloakadminusername: "admin@lockular.in",
-      keycloakadminpassword: "lockular@2023",
-      keycloakadminsecret: "zRrW6BSxR0Ls8DLf3jnDvDLdn13tgFlj"
+      keycloakadminusername: "*******",
+      keycloakadminpassword: "***********************",
+      keycloakadminsecret: "*************************"
     };
     export default config;
